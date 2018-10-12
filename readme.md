@@ -5,6 +5,7 @@ import urllib
 import zipfile
 import json
 
+ws = biokbase.narrative.clients.get('workspace')
 
 def load_ont(prefix):
     urllib.urlretrieve ("https://github.com/JamesJeffryes/KBOntologies/blob/master/{}.json.zip?raw=true".format(prefix), "/tmp/{}.json.zip".format(prefix))
