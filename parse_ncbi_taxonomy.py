@@ -12,6 +12,8 @@ def parse_names(path):
     aliases = defaultdict(list)
     for line in open(path):
         sl = line.split('\t')
+        if sl[6] == 'authority':
+            continue
         aliases[sl[0]].append(sl[2])
     return aliases
 
@@ -22,7 +24,7 @@ def parse_lineages(path):
         sl = line.split('\t')
         names[sl[0]] = sl[2]
         lineages[sl[0]] = sl[4]
-    return names,lineages
+    return names, lineages
 
 
 if __name__ == "__main__":
@@ -35,7 +37,7 @@ if __name__ == "__main__":
         sl = line.split('\t')
         taxa[f'NCBI:txid{sl[0]}'] = {
             'id': f'NCBI:txid{sl[0]}',
-            'is_a': [f'NCBI:txid{sl[2]} ! {scientific_names[sl[2]]}'],
+            'is_a': [f'NCBI:txid{sl[2]}'],
             'synonym': aliases[sl[0]],
             'name': scientific_names[sl[0]],
             'def': [f'Genetic Code:{sl[12]}',
